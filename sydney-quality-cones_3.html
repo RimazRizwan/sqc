@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sydney Quality Cones — Ice Cream & Gelato Wholesale Supplies</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FFF8EE;
+    --warm: #FFF0D4;
+    --cone: #E8832A;
+    --cone-dark: #C4611A;
+    --chocolate: #3D1A0A;
+    --mint: #2EAE8F;
+    --mint-light: #D4F5ED;
+    --strawberry: #E84A6A;
+    --vanilla: #F9D56E;
+    --text: #1A0A00;
+    --muted: #7A5A3A;
+    --white: #FFFDF9;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(255,248,238,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(232,131,42,0.2);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 900;
+    color: var(--cone-dark);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .logo span { color: var(--cone); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--text);
+    font-size: 0.875rem; font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--cone); }
+  .nav-cta {
+    background: var(--cone);
+    color: white; border: none; padding: 10px 22px;
+    border-radius: 50px; font-size: 0.875rem; font-weight: 500;
+    cursor: pointer; transition: background 0.2s, transform 0.2s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--cone-dark); transform: scale(1.03); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 80px 5% 60px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse at 70% 50%, #FFE4B5 0%, var(--cream) 60%);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 560px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--mint-light); color: #1a7a60;
+    padding: 6px 16px; border-radius: 50px;
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-badge::before { content: '✦'; font-size: 10px; }
+  h1.headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 900; line-height: 1.1;
+    color: var(--chocolate);
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+  h1.headline em {
+    font-style: normal;
+    color: var(--cone);
+    display: block;
+  }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--muted);
+    line-height: 1.7; margin: 1.5rem 0 2.5rem;
+    font-weight: 300;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--cone); color: white;
+    padding: 14px 30px; border-radius: 50px;
+    font-size: 1rem; font-weight: 500;
+    text-decoration: none; transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(232,131,42,0.35);
+  }
+  .btn-primary:hover { background: var(--cone-dark); transform: translateY(-2px); }
+  .btn-secondary {
+    background: transparent; color: var(--cone-dark);
+    padding: 14px 30px; border-radius: 50px;
+    font-size: 1rem; font-weight: 500;
+    text-decoration: none; border: 2px solid var(--cone);
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { background: var(--warm); }
+  .hero-visual {
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: 55%; z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cone-scene {
+    position: relative; width: 420px; height: 520px;
+  }
+  /* Animated scoops */
+  .scoop {
+    position: absolute; border-radius: 50%;
+    animation: float 4s ease-in-out infinite;
+  }
+  .scoop-1 { width: 160px; height: 160px; background: var(--strawberry); opacity: 0.9; top: 60px; left: 130px; animation-delay: 0s; }
+  .scoop-2 { width: 140px; height: 140px; background: var(--vanilla); opacity: 0.9; top: 110px; left: 140px; animation-delay: 0.5s; }
+  .scoop-3 { width: 130px; height: 130px; background: #B5E8D4; opacity: 0.9; top: 150px; left: 145px; animation-delay: 1s; }
+  .cone-body {
+    position: absolute; bottom: 60px; left: 158px;
+    width: 0; height: 0;
+    border-left: 55px solid transparent;
+    border-right: 55px solid transparent;
+    border-top: 220px solid var(--cone);
+    filter: drop-shadow(0 8px 20px rgba(196,97,26,0.3));
+    animation: float 4s ease-in-out infinite;
+  }
+  .cone-pattern {
+    position: absolute; bottom: 60px; left: 158px;
+    width: 0; height: 0;
+    border-left: 55px solid transparent;
+    border-right: 55px solid transparent;
+    border-top: 220px solid rgba(255,255,255,0.1);
+    animation: float 4s ease-in-out infinite;
+  }
+  .drip {
+    position: absolute;
+    border-radius: 0 0 50% 50%;
+    animation: drip 3s ease-in-out infinite;
+  }
+  .drip-1 { width: 14px; height: 24px; background: var(--strawberry); top: 215px; left: 200px; animation-delay: 0.2s; }
+  .drip-2 { width: 10px; height: 18px; background: var(--vanilla); top: 222px; left: 224px; animation-delay: 1s; }
+  /* Sprinkles */
+  .sprinkle {
+    position: absolute; width: 6px; height: 18px; border-radius: 3px;
+    animation: spin 6s linear infinite;
+  }
+  .sp1 { background: #FF6B6B; top: 45px; left: 80px; transform: rotate(30deg); }
+  .sp2 { background: #6BCFFF; top: 90px; left: 320px; transform: rotate(-20deg); animation-delay: 1s; }
+  .sp3 { background: #FFD93D; top: 170px; left: 70px; transform: rotate(50deg); animation-delay: 2s; }
+  .sp4 { background: #C9B1FF; top: 30px; left: 310px; transform: rotate(-40deg); animation-delay: 0.5s; }
+  .sp5 { background: var(--mint); top: 200px; left: 340px; transform: rotate(15deg); animation-delay: 1.5s; }
+  /* Stars */
+  .star-float {
+    position: absolute; font-size: 22px;
+    animation: floatStar 5s ease-in-out infinite;
+  }
+  .sf1 { top: 40px; left: 50px; animation-delay: 0s; }
+  .sf2 { top: 100px; left: 360px; animation-delay: 1.2s; }
+  .sf3 { top: 280px; left: 40px; animation-delay: 2.4s; }
+  .sf4 { top: 350px; left: 370px; animation-delay: 0.8s; }
+
+  /* ─── STATS ─── */
+  .stats-bar {
+    background: var(--chocolate);
+    padding: 24px 5%;
+    display: flex; gap: 2rem; flex-wrap: wrap;
+    justify-content: center;
+  }
+  .stat-item { text-align: center; color: white; }
+  .stat-item .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700; color: var(--vanilla);
+  }
+  .stat-item .lbl { font-size: 0.8rem; color: rgba(255,255,255,0.6); letter-spacing: 0.05em; }
+
+  /* ─── SECTION SHARED ─── */
+  section { padding: 80px 5%; }
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--cone); font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .section-tag::before { content: '●'; font-size: 7px; }
+  h2.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900;
+    color: var(--chocolate); line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .section-sub { color: var(--muted); font-size: 1rem; line-height: 1.7; max-width: 520px; }
+
+  /* ─── CATALOGUE ─── */
+  #catalogue { background: var(--white); }
+  .catalogue-header { text-align: center; margin-bottom: 3rem; }
+  .catalogue-header .section-sub { margin: 0 auto; }
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .cat-card {
+    background: var(--cream);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+  .cat-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+  .cat-card::before {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 120px; height: 120px; border-radius: 50%;
+    opacity: 0.15; transition: transform 0.4s;
+  }
+  .cat-card:hover::before { transform: scale(1.3); }
+  .cat-card.strawberry::before { background: var(--strawberry); }
+  .cat-card.mint::before { background: var(--mint); }
+  .cat-card.vanilla::before { background: var(--vanilla); }
+  .cat-card.chocolate::before { background: var(--chocolate); }
+  .cat-card.cone-col::before { background: var(--cone); }
+  .cat-card.blue::before { background: #4A90E2; }
+  .cat-icon {
+    font-size: 3rem; margin-bottom: 1rem;
+    display: block;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  .cat-card:nth-child(2) .cat-icon { animation-delay: 0.3s; }
+  .cat-card:nth-child(3) .cat-icon { animation-delay: 0.6s; }
+  .cat-card:nth-child(4) .cat-icon { animation-delay: 0.9s; }
+  .cat-card:nth-child(5) .cat-icon { animation-delay: 1.2s; }
+  .cat-card:nth-child(6) .cat-icon { animation-delay: 1.5s; }
+  .cat-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 700;
+    color: var(--chocolate); margin-bottom: 0.5rem;
+  }
+  .cat-card p { color: var(--muted); font-size: 0.875rem; line-height: 1.6; margin-bottom: 1rem; }
+  .cat-tag {
+    display: inline-block; background: white;
+    color: var(--cone-dark); padding: 4px 12px;
+    border-radius: 50px; font-size: 0.75rem; font-weight: 500;
+  }
+
+  /* ─── WHOLESALE ─── */
+  #wholesale {
+    background: linear-gradient(135deg, var(--chocolate) 0%, #5A2A10 100%);
+    color: white;
+  }
+  .wholesale-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .wholesale-text .section-tag { color: var(--vanilla); }
+  .wholesale-text h2.section-title { color: white; }
+  .wholesale-text .section-sub { color: rgba(255,255,255,0.7); max-width: 100%; }
+  .perks { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+  .perk {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(255,255,255,0.07);
+    padding: 16px 20px; border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: background 0.2s;
+  }
+  .perk:hover { background: rgba(255,255,255,0.12); }
+  .perk-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .perk h4 { font-size: 0.95rem; font-weight: 500; margin-bottom: 2px; }
+  .perk p { font-size: 0.8rem; color: rgba(255,255,255,0.6); }
+  .pricing-card {
+    background: var(--cream);
+    border-radius: 24px; padding: 2.5rem;
+    color: var(--chocolate);
+  }
+  .pricing-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 900; margin-bottom: 0.5rem;
+  }
+  .pricing-card .subtitle { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .price-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.07);
+    font-size: 0.9rem;
+  }
+  .price-row:last-of-type { border-bottom: none; }
+  .price-row span:last-child { font-weight: 500; color: var(--cone-dark); }
+  .cta-inline {
+    display: block; text-align: center;
+    background: var(--cone); color: white;
+    padding: 14px; border-radius: 50px;
+    text-decoration: none; font-weight: 500;
+    margin-top: 1.5rem; transition: all 0.2s;
+  }
+  .cta-inline:hover { background: var(--cone-dark); }
+
+  /* ─── SOFT SERVE ─── */
+  #softserve { background: var(--mint-light); }
+  .ss-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .ss-card {
+    background: white;
+    border-radius: 20px; padding: 2rem;
+    border: 2px solid transparent;
+    transition: all 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .ss-card:hover { border-color: var(--mint); transform: translateY(-4px); }
+  .ss-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 4px; background: var(--mint);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .ss-card:hover::after { transform: scaleX(1); }
+  .ss-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+  .ss-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--chocolate); }
+  .ss-card p { color: var(--muted); font-size: 0.875rem; line-height: 1.6; }
+
+  /* ─── BRANDS / TRUST ─── */
+  .trust-bar {
+    background: var(--warm); padding: 36px 5%;
+    text-align: center;
+  }
+  .trust-bar p { color: var(--muted); font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.5rem; }
+  .trust-logos { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; align-items: center; }
+  .trust-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; color: var(--cone-dark); opacity: 0.5;
+    font-weight: 700; letter-spacing: -0.02em;
+    transition: opacity 0.2s;
+  }
+  .trust-logo:hover { opacity: 1; }
+
+  /* ─── CONTACT ─── */
+  #contact { background: var(--cream); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .contact-info h2.section-title { margin-bottom: 1rem; }
+  .contact-methods { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+  .contact-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px; background: white;
+    border-radius: 14px; border: 1px solid rgba(0,0,0,0.06);
+    transition: border-color 0.2s;
+  }
+  .contact-item:hover { border-color: var(--cone); }
+  .contact-item .ci-icon { font-size: 1.4rem; }
+  .contact-item h4 { font-size: 0.85rem; color: var(--muted); margin-bottom: 2px; }
+  .contact-item p { font-size: 0.95rem; font-weight: 500; color: var(--chocolate); }
+  .contact-form { background: white; border-radius: 24px; padding: 2.5rem; box-shadow: 0 4px 30px rgba(0,0,0,0.06); }
+  .contact-form h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--chocolate); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label { display: block; font-size: 0.8rem; font-weight: 500; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%; padding: 12px 16px;
+    border: 1.5px solid rgba(0,0,0,0.1);
+    border-radius: 10px; font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; color: var(--text);
+    background: var(--cream);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--cone); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-submit {
+    width: 100%; background: var(--cone); color: white;
+    border: none; padding: 14px; border-radius: 50px;
+    font-size: 1rem; font-weight: 500; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .form-submit:hover { background: var(--cone-dark); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--chocolate); color: white;
+    padding: 48px 5% 24px;
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  .footer-brand .logo { color: var(--vanilla); font-size: 1.4rem; margin-bottom: 0.75rem; }
+  .footer-brand .logo span { color: var(--cone); }
+  .footer-brand p { color: rgba(255,255,255,0.5); font-size: 0.875rem; line-height: 1.7; }
+  .footer-col h4 { color: var(--vanilla); font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .footer-col ul li a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: white; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-bottom p { color: rgba(255,255,255,0.4); font-size: 0.8rem; }
+  .footer-bottom .made { color: rgba(255,255,255,0.3); font-size: 0.75rem; }
+
+  /* ─── NAV DROPDOWN ─── */
+  .nav-dropdown { position: relative; }
+  .nav-dropdown > a { display: flex; align-items: center; gap: 4px; }
+  .nav-dropdown > a::after { content: '▾'; font-size: 0.65rem; margin-top: 1px; }
+  .dropdown-menu {
+    display: none;
+    position: absolute; top: calc(100% + 12px); left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+    min-width: 200px;
+    padding: 8px 0;
+    z-index: 200;
+    border: 1px solid rgba(232,131,42,0.15);
+  }
+  .dropdown-menu::before {
+    content: '';
+    position: absolute; top: -6px; left: 50%; transform: translateX(-50%);
+    width: 12px; height: 12px; background: white;
+    border-left: 1px solid rgba(232,131,42,0.15);
+    border-top: 1px solid rgba(232,131,42,0.15);
+    transform: translateX(-50%) rotate(45deg);
+  }
+  .nav-dropdown:hover .dropdown-menu { display: block; }
+  .dropdown-menu a {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 18px;
+    font-size: 0.875rem; color: var(--text);
+    text-decoration: none; font-weight: 400;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  .dropdown-menu a:hover { background: var(--warm); color: var(--cone-dark); }
+  .dropdown-menu a .dm-icon { font-size: 1.1rem; }
+
+  /* ─── CATALOGUE MODAL ─── */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(30,10,0,0.55);
+    backdrop-filter: blur(4px);
+    align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: var(--white);
+    border-radius: 28px;
+    max-width: 680px; width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+    animation: modalIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.88) translateY(30px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .modal-header {
+    padding: 28px 32px 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    display: flex; justify-content: space-between; align-items: flex-start;
+    background: linear-gradient(135deg, var(--warm), var(--cream));
+    flex-shrink: 0;
+  }
+  .modal-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 900; color: var(--chocolate);
+    margin-bottom: 4px;
+  }
+  .modal-header p { color: var(--muted); font-size: 0.875rem; }
+  .modal-close {
+    background: none; border: none; font-size: 1.4rem;
+    cursor: pointer; color: var(--muted); line-height: 1;
+    padding: 4px 8px; border-radius: 8px;
+    transition: background 0.2s; flex-shrink: 0;
+  }
+  .modal-close:hover { background: rgba(0,0,0,0.07); }
+  .modal-body {
+    padding: 24px 32px;
+    overflow-y: auto; flex: 1;
+  }
+  .cat-section-label {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--cone);
+    margin: 20px 0 10px; display: flex; align-items: center; gap: 8px;
+  }
+  .cat-section-label::after { content: ''; flex: 1; height: 1px; background: rgba(232,131,42,0.2); }
+  .cat-section-label:first-child { margin-top: 0; }
+  .product-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  }
+  .product-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 14px;
+    border: 1.5px solid rgba(0,0,0,0.08);
+    border-radius: 12px; cursor: pointer;
+    transition: all 0.2s; background: white;
+    user-select: none;
+  }
+  .product-item:hover { border-color: var(--cone); background: var(--warm); }
+  .product-item.selected { border-color: var(--cone); background: #FFF3E6; }
+  .product-item input[type="checkbox"] { display: none; }
+  .custom-check {
+    width: 20px; height: 20px; flex-shrink: 0;
+    border: 2px solid #ddd; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; font-size: 0.7rem; color: white;
+  }
+  .product-item.selected .custom-check {
+    background: var(--cone); border-color: var(--cone);
+  }
+  .product-item.selected .custom-check::after { content: '✓'; }
+  .prod-info { flex: 1; }
+  .prod-name { font-size: 0.875rem; font-weight: 500; color: var(--chocolate); }
+  .prod-sub { font-size: 0.75rem; color: var(--muted); margin-top: 1px; }
+  .prod-icon { font-size: 1.3rem; }
+  /* ─── QTY STEPPER ─── */
+  .qty-stepper {
+    display: none;
+    align-items: center; gap: 0;
+    margin-top: 7px;
+    border: 1.5px solid var(--cone);
+    border-radius: 20px; overflow: hidden;
+    width: fit-content;
+  }
+  .product-item.selected .qty-stepper { display: flex; }
+  .qty-btn {
+    background: var(--cone); color: white;
+    border: none; width: 26px; height: 24px;
+    font-size: 1rem; line-height: 1;
+    cursor: pointer; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s; flex-shrink: 0;
+  }
+  .qty-btn:hover { background: var(--cone-dark); }
+  .qty-value {
+    width: 32px; text-align: center;
+    font-size: 0.82rem; font-weight: 600;
+    color: var(--cone-dark);
+    background: white; height: 24px;
+    display: flex; align-items: center; justify-content: center;
+    border-left: 1px solid rgba(232,131,42,0.3);
+    border-right: 1px solid rgba(232,131,42,0.3);
+  }
+  .modal-footer {
+    padding: 20px 32px;
+    border-top: 1px solid rgba(0,0,0,0.07);
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--cream); flex-shrink: 0; gap: 12px;
+  }
+  .selected-count { font-size: 0.875rem; color: var(--muted); }
+  .selected-count strong { color: var(--cone-dark); }
+  .btn-send-wa {
+    background: #25D366; color: white;
+    border: none; padding: 13px 28px;
+    border-radius: 50px; font-size: 0.95rem; font-weight: 500;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    display: flex; align-items: center; gap: 8px;
+    transition: all 0.2s; box-shadow: 0 4px 16px rgba(37,211,102,0.4);
+  }
+  .btn-send-wa:hover { background: #1ebe5e; transform: translateY(-1px); }
+  .btn-send-wa:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .modal-success {
+    display: none; flex-direction: column; align-items: center;
+    justify-content: center; padding: 48px 32px; text-align: center;
+  }
+  .modal-success .success-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+  .modal-success h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--chocolate); margin-bottom: 0.5rem; }
+  .modal-success p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+
+  /* ─── WHATSAPP FLOAT ─── */
+  .whatsapp-float {
+    position: fixed; bottom: 28px; right: 28px; z-index: 200;
+    background: #25D366; color: white;
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; text-decoration: none;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+    animation: pulse 2.5s ease-in-out infinite;
+    transition: transform 0.2s;
+  }
+  .whatsapp-float:hover { transform: scale(1.1); }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── KEYFRAMES ─── */
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes drip {
+    0%,100% { transform: scaleY(1); }
+    50% { transform: scaleY(1.3); }
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg) translateY(0); }
+    to { transform: rotate(360deg) translateY(-6px); }
+  }
+  @keyframes floatStar {
+    0%,100% { transform: translate(0,0) rotate(0deg); opacity: 0.6; }
+    50% { transform: translate(6px,-10px) rotate(20deg); opacity: 1; }
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,0.5); }
+    50% { box-shadow: 0 4px 30px rgba(37,211,102,0.8); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .hero-visual { display: none; }
+    .wholesale-grid, .contact-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    nav .nav-links, nav .nav-cta { display: none; }
+  }
+  @media (max-width: 600px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    section { padding: 60px 5%; }
+  }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">🍦 Sydney <span>Quality Cones</span></div>
+  <ul class="nav-links">
+    <li class="nav-dropdown">
+      <a href="#catalogue">Products</a>
+      <div class="dropdown-menu">
+        <a href="#softserve"><span class="dm-icon">🍦</span> Soft Serve</a>
+        <a href="#catalogue"><span class="dm-icon">🧇</span> Scandinavian</a>
+        <a href="#catalogue"><span class="dm-icon">📦</span> Plain Packaging</a>
+        <a href="#catalogue"><span class="dm-icon">🎨</span> Custom Packaging</a>
+        <a href="#catalogue"><span class="dm-icon">🍓</span> Toppings</a>
+        <a href="#catalogue"><span class="dm-icon">🍨</span> Gelato</a>
+      </div>
+    </li>
+    <li><a href="#wholesale">Wholesale</a></li>
+    <li><a href="#softserve">Soft Serve</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="openCatalogue()">Get a Quote</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Sydney's Premium Ice Cream Supplier</div>
+    <h1 class="headline">
+      Sweet Success
+      <em>Starts Here.</em>
+    </h1>
+    <p class="hero-sub">
+      Wholesale ice cream cones, gelato supplies, soft serve products & cups — 
+      trusted by cafés, gelateries & dessert shops across greater Sydney.
+    </p>
+    <div class="hero-btns">
+      <a href="#catalogue" class="btn-primary">Browse Catalogue</a>
+      <button onclick="openCatalogue()" class="btn-secondary" style="cursor:pointer; font-family:inherit;">Get a Quote 📋</button>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="cone-scene">
+      <div class="star-float sf1">⭐</div>
+      <div class="star-float sf2">✨</div>
+      <div class="star-float sf3">🌟</div>
+      <div class="star-float sf4">⭐</div>
+      <div class="sprinkle sp1"></div>
+      <div class="sprinkle sp2"></div>
+      <div class="sprinkle sp3"></div>
+      <div class="sprinkle sp4"></div>
+      <div class="sprinkle sp5"></div>
+      <div class="scoop scoop-1"></div>
+      <div class="scoop scoop-2"></div>
+      <div class="scoop scoop-3"></div>
+      <div class="drip drip-1"></div>
+      <div class="drip drip-2"></div>
+      <div class="cone-body"></div>
+      <div class="cone-pattern"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="num">20+</div>
+    <div class="lbl">Years in Business</div>
+  </div>
+  <div class="stat-item">
+    <div class="num">500+</div>
+    <div class="lbl">Happy Customers</div>
+  </div>
+  <div class="stat-item">
+    <div class="num">50+</div>
+    <div class="lbl">Product Lines</div>
+  </div>
+  <div class="stat-item">
+    <div class="num">NSW</div>
+    <div class="lbl">Delivery Available</div>
+  </div>
+</div>
+
+<!-- CATALOGUE -->
+<section id="catalogue">
+  <div class="catalogue-header reveal">
+    <div class="section-tag">Product Catalogue</div>
+    <h2 class="section-title">Everything You Need to Scoop</h2>
+    <p class="section-sub">From traditional waffle cones to gelato supplies — we stock it all so you can focus on creating memorable flavours.</p>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-card cone-col reveal">
+      <span class="cat-icon">🍦</span>
+      <h3>Ice Cream Cones</h3>
+      <p>Waffle cones, sugar cones, flat-bottom cones, and rolled wafers. Bulk packs for high-volume service.</p>
+      <span class="cat-tag">Waffle · Sugar · Wafer</span>
+    </div>
+    <div class="cat-card mint reveal">
+      <span class="cat-icon">🍨</span>
+      <h3>Gelato Supplies</h3>
+      <p>Gelato pans, display containers, flavor inserts, stabilisers, and everything for an authentic Italian setup.</p>
+      <span class="cat-tag">Pans · Containers · Mix-ins</span>
+    </div>
+    <div class="cat-card vanilla reveal">
+      <span class="cat-icon">🥤</span>
+      <h3>Cups & Tubs</h3>
+      <p>Paper cups, plastic tubs, sundae cups, and eco-friendly compostable options in all sizes.</p>
+      <span class="cat-tag">Paper · Plastic · Eco</span>
+    </div>
+    <div class="cat-card strawberry reveal">
+      <span class="cat-icon">🍧</span>
+      <h3>Soft Serve</h3>
+      <p>Soft serve mix powders, flavourings, dip coatings, and machine cleaning supplies.</p>
+      <span class="cat-tag">Mix · Coatings · Toppings</span>
+    </div>
+    <div class="cat-card chocolate reveal">
+      <span class="cat-icon">🛒</span>
+      <h3>Wholesale Bundles</h3>
+      <p>Pre-curated bulk packs for cafés, cinemas, and dessert shops. Significant savings on large orders.</p>
+      <span class="cat-tag">Bulk · Custom · Seasonal</span>
+    </div>
+    <div class="cat-card blue reveal">
+      <span class="cat-icon">🎀</span>
+      <h3>Toppings & Extras</h3>
+      <p>Sprinkles, sauces, nuts, fruits, wafer rolls, chocolate flakes, and decorative accessories.</p>
+      <span class="cat-tag">Toppings · Sauces · Decor</span>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar reveal">
+  <p>Supplying businesses across Sydney since 2004</p>
+  <div class="trust-logos">
+    <div class="trust-logo">Café Supplies Co.</div>
+    <div class="trust-logo">◆</div>
+    <div class="trust-logo">Gelato Central</div>
+    <div class="trust-logo">◆</div>
+    <div class="trust-logo">Sweet Treats NSW</div>
+    <div class="trust-logo">◆</div>
+    <div class="trust-logo">Sydney Scoops</div>
+    <div class="trust-logo">◆</div>
+    <div class="trust-logo">The Cone Factory</div>
+  </div>
+</div>
+
+<!-- WHOLESALE -->
+<section id="wholesale">
+  <div class="wholesale-grid">
+    <div class="wholesale-text reveal">
+      <div class="section-tag">Wholesale</div>
+      <h2 class="section-title">Built for Business</h2>
+      <p class="section-sub">We make it easy to keep your shelves stocked with consistent quality at trade prices. Minimum orders, fast dispatch, and a dedicated account manager.</p>
+      <div class="perks">
+        <div class="perk">
+          <div class="perk-icon">🚚</div>
+          <div>
+            <h4>Sydney-wide delivery</h4>
+            <p>Reliable delivery across Greater Sydney & NSW</p>
+          </div>
+        </div>
+        <div class="perk">
+          <div class="perk-icon">💰</div>
+          <div>
+            <h4>Trade pricing</h4>
+            <p>Competitive rates with volume discounts applied automatically</p>
+          </div>
+        </div>
+        <div class="perk">
+          <div class="perk-icon">📦</div>
+          <div>
+            <h4>Flexible MOQ</h4>
+            <p>Minimum order quantities that work for small and large businesses</p>
+          </div>
+        </div>
+        <div class="perk">
+          <div class="perk-icon">📞</div>
+          <div>
+            <h4>Dedicated support</h4>
+            <p>Direct line to your account manager for fast reorders</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="pricing-card">
+        <h3>Sample Wholesale Pricing</h3>
+        <p class="subtitle">Prices are ex-GST. Contact us for a full price list.</p>
+        <div class="price-row"><span>Waffle Cones (500 units)</span><span>From $42</span></div>
+        <div class="price-row"><span>Sugar Cones (1,000 units)</span><span>From $55</span></div>
+        <div class="price-row"><span>Paper Cups 4oz (500 units)</span><span>From $38</span></div>
+        <div class="price-row"><span>Gelato Pans (set of 6)</span><span>From $75</span></div>
+        <div class="price-row"><span>Soft Serve Mix 10kg</span><span>From $65</span></div>
+        <div class="price-row"><span>Sprinkle Assorted 1kg</span><span>From $18</span></div>
+        <a href="#contact" class="cta-inline">Request Full Price List →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOFT SERVE -->
+<section id="softserve">
+  <div class="reveal" style="text-align:center; margin-bottom:0.5rem;">
+    <div class="section-tag" style="justify-content:center">Soft Serve Range</div>
+    <h2 class="section-title">Creamy. Dreamy. Consistent.</h2>
+    <p class="section-sub" style="margin:0 auto;">Our soft serve product line is designed for high-output machines and consistent flavour across every serve.</p>
+  </div>
+  <div class="ss-grid">
+    <div class="ss-card reveal">
+      <span class="ss-icon">🤍</span>
+      <h3>Classic Vanilla Mix</h3>
+      <p>Rich, authentic vanilla flavour. Smooth, creamy texture with excellent overrun for cost-efficient output. Available in 10kg & 20kg.</p>
+    </div>
+    <div class="ss-card reveal">
+      <span class="ss-icon">🍫</span>
+      <h3>Chocolate Mix</h3>
+      <p>Deep cocoa richness with a clean finish. Pairs perfectly with waffle cones or sundae cups. Consistent draw from any soft serve machine.</p>
+    </div>
+    <div class="ss-card reveal">
+      <span class="ss-icon">🍓</span>
+      <h3>Strawberry Mix</h3>
+      <p>Vibrant natural-flavour strawberry with a light pink colour. A customer favourite — especially popular in summer.</p>
+    </div>
+    <div class="ss-card reveal">
+      <span class="ss-icon">🎨</span>
+      <h3>Dip Coatings</h3>
+      <p>Chocolate, strawberry and butterscotch dip coatings. Sets in seconds to create that iconic crunch coating.</p>
+    </div>
+    <div class="ss-card reveal">
+      <span class="ss-icon">🧺</span>
+      <h3>Machine Cleaning Kits</h3>
+      <p>Food-safe sanitisers and cleaning solutions formulated for all major soft serve machine brands.</p>
+    </div>
+    <div class="ss-card reveal">
+      <span class="ss-icon">🌀</span>
+      <h3>Flavour Pastes</h3>
+      <p>Concentrated flavour pastes to customise and expand your soft serve offering — matcha, taro, mango and more.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <div class="section-tag">Get in Touch</div>
+      <h2 class="section-title">Ready to Order?</h2>
+      <p class="section-sub">Reach out for a wholesale account, product enquiry, or to request our full product catalogue and price list.</p>
+      <div class="contact-methods">
+        <div class="contact-item">
+          <div class="ci-icon">📞</div>
+          <div>
+            <h4>Phone</h4>
+            <p>+61 2 XXXX XXXX</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">💬</div>
+          <div>
+            <h4>WhatsApp</h4>
+            <p>+61 4XX XXX XXX</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">📧</div>
+          <div>
+            <h4>Email</h4>
+            <p>info@sydneyqualitycones.com.au</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">📍</div>
+          <div>
+            <h4>Location</h4>
+            <p>Sydney, NSW, Australia</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">🕐</div>
+          <div>
+            <h4>Business Hours</h4>
+            <p>Mon–Fri: 8am–5pm</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="contact-form">
+        <h3>Get a Quote</h3>
+        <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;line-height:1.6;">Select the products you're interested in and we'll send you a tailored quote via WhatsApp.</p>
+        <button onclick="openCatalogue()" style="width:100%;background:var(--cone);color:white;border:none;padding:16px;border-radius:50px;font-size:1rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;box-shadow:0 4px 20px rgba(232,131,42,0.35);display:flex;align-items:center;justify-content:center;gap:8px;" onmouseover="this.style.background='var(--cone-dark)'" onmouseout="this.style.background='var(--cone)'">
+          📋 Select Products & Get a Quote
+        </button>
+        <div style="margin-top:1.5rem;padding:20px;background:var(--warm);border-radius:16px;">
+          <p style="font-size:0.85rem;color:var(--muted);text-align:center;margin-bottom:12px;">Or reach us directly</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <a href="tel:+61200000000" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--chocolate);font-weight:500;font-size:0.9rem;">📞 +61 2 XXXX XXXX</a>
+            <a href="https://wa.me/61400000000" target="_blank" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#25D366;font-weight:500;font-size:0.9rem;">💬 WhatsApp Us</a>
+            <a href="mailto:info@sydneyqualitycones.com.au" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--chocolate);font-weight:500;font-size:0.9rem;">📧 info@sydneyqualitycones.com.au</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">🍦 Sydney <span>Quality Cones</span></div>
+      <p>Sydney's trusted wholesale supplier of ice cream cones, gelato supplies, cups, and soft serve products. Supplying cafés, restaurants, and dessert shops since 2004.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="#catalogue">Ice Cream Cones</a></li>
+        <li><a href="#catalogue">Gelato Supplies</a></li>
+        <li><a href="#catalogue">Cups & Tubs</a></li>
+        <li><a href="#softserve">Soft Serve</a></li>
+        <li><a href="#catalogue">Toppings</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#wholesale">Wholesale</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#contact">Get a Quote</a></li>
+        <li><a href="#">Delivery Info</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Sydney Quality Cones. All rights reserved. Sydney, NSW.</p>
+    <p class="made">ABN: XX XXX XXX XXX</p>
+  </div>
+</footer>
+
+<!-- PRODUCT CATALOGUE MODAL -->
+<div class="modal-overlay" id="catalogueModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <h2>🛒 Product Catalogue</h2>
+        <p>Select the products you're interested in, then submit to send us your enquiry via WhatsApp.</p>
+      </div>
+      <button class="modal-close" onclick="closeCatalogue()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody">
+
+      <div class="cat-section-label">🍦 Soft Serve</div>
+      <div class="product-grid">
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🤍</span>
+          <div class="prod-info"><div class="prod-name">Classic Vanilla Mix</div><div class="prod-sub">10kg & 20kg bags</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🍫</span>
+          <div class="prod-info"><div class="prod-name">Chocolate Mix</div><div class="prod-sub">10kg & 20kg bags</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🍓</span>
+          <div class="prod-info"><div class="prod-name">Strawberry Mix</div><div class="prod-sub">Natural flavour</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🎨</span>
+          <div class="prod-info"><div class="prod-name">Dip Coatings</div><div class="prod-sub">Choc, strawberry, butterscotch</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🌀</span>
+          <div class="prod-info"><div class="prod-name">Flavour Pastes</div><div class="prod-sub">Matcha, taro, mango & more</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🧺</span>
+          <div class="prod-info"><div class="prod-name">Machine Cleaning Kits</div><div class="prod-sub">All major brands</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+      </div>
+
+      <div class="cat-section-label">🧇 Scandinavian Cones</div>
+      <div class="product-grid">
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🧇</span>
+          <div class="prod-info"><div class="prod-name">Scandinavian Waffle Cones</div><div class="prod-sub">Light & crispy, bulk pack</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🍦</span>
+          <div class="prod-info"><div class="prod-name">Sugar Cones</div><div class="prod-sub">1,000 unit cartons</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🌀</span>
+          <div class="prod-info"><div class="prod-name">Rolled Wafer Cones</div><div class="prod-sub">Classic style, bulk</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🔷</span>
+          <div class="prod-info"><div class="prod-name">Flat-Bottom Cones</div><div class="prod-sub">Display & retail</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+      </div>
+
+      <div class="cat-section-label">📦 Plain Packaging</div>
+      <div class="product-grid">
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🥤</span>
+          <div class="prod-info"><div class="prod-name">Paper Cups (4oz)</div><div class="prod-sub">500 unit packs</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🫙</span>
+          <div class="prod-info"><div class="prod-name">Sundae Cups</div><div class="prod-sub">Clear plastic, all sizes</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🌿</span>
+          <div class="prod-info"><div class="prod-name">Eco Compostable Cups</div><div class="prod-sub">Biodegradable range</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">📦</span>
+          <div class="prod-info"><div class="prod-name">Take-Home Tubs</div><div class="prod-sub">500ml & 1L sizes</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+      </div>
+
+      <div class="cat-section-label">🎨 Custom Packaging</div>
+      <div class="product-grid">
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🎨</span>
+          <div class="prod-info"><div class="prod-name">Custom Printed Cups</div><div class="prod-sub">Your logo, min 500 units</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🏷️</span>
+          <div class="prod-info"><div class="prod-name">Branded Cone Sleeves</div><div class="prod-sub">Full colour print</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🎁</span>
+          <div class="prod-info"><div class="prod-name">Custom Gift Boxes</div><div class="prod-sub">Seasonal & corporate</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🛍️</span>
+          <div class="prod-info"><div class="prod-name">Branded Carry Bags</div><div class="prod-sub">Paper & reusable</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+      </div>
+
+      <div class="cat-section-label">🍓 Toppings</div>
+      <div class="product-grid">
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🌈</span>
+          <div class="prod-info"><div class="prod-name">Rainbow Sprinkles</div><div class="prod-sub">Assorted 1kg bags</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🍫</span>
+          <div class="prod-info"><div class="prod-name">Chocolate Flakes</div><div class="prod-sub">Bulk 2kg packs</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🍯</span>
+          <div class="prod-info"><div class="prod-name">Caramel Sauce</div><div class="prod-sub">2L & 5L containers</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🍓</span>
+          <div class="prod-info"><div class="prod-name">Strawberry Sauce</div><div class="prod-sub">2L & 5L containers</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🥜</span>
+          <div class="prod-info"><div class="prod-name">Crushed Nuts</div><div class="prod-sub">Mixed & peanut, 1kg</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🍒</span>
+          <div class="prod-info"><div class="prod-name">Glacé Cherries</div><div class="prod-sub">Cocktail size, bulk</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+      </div>
+
+      <div class="cat-section-label">🍨 Gelato</div>
+      <div class="product-grid">
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🍧</span>
+          <div class="prod-info"><div class="prod-name">Gelato Pans</div><div class="prod-sub">Stainless steel, set of 6</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🫙</span>
+          <div class="prod-info"><div class="prod-name">Display Containers</div><div class="prod-sub">Insulated, various sizes</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🧪</span>
+          <div class="prod-info"><div class="prod-name">Gelato Stabilisers</div><div class="prod-sub">Professional grade</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🎨</span>
+          <div class="prod-info"><div class="prod-name">Flavour Inserts</div><div class="prod-sub">30+ Italian flavours</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🥛</span>
+          <div class="prod-info"><div class="prod-name">Gelato Base Mix</div><div class="prod-sub">10kg packs, all varieties</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+        <div class="product-item" onclick="toggleProduct(this)">
+          <input type="checkbox"><div class="custom-check"></div>
+          <span class="prod-icon">🍦</span>
+          <div class="prod-info"><div class="prod-name">Gelato Spades / Paddles</div><div class="prod-sub">Display & serving</div><div class="qty-stepper"><button class="qty-btn" onclick="changeQty(event,this,-1)">−</button><div class="qty-value">1</div><button class="qty-btn" onclick="changeQty(event,this,1)">+</button></div></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <div class="selected-count">Selected: <strong id="selCount">0</strong> products</div>
+      <button class="btn-send-wa" id="sendBtn" onclick="submitCatalogue()" disabled>
+        📄 Download PDF & WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- WhatsApp Float -->
+<a class="whatsapp-float" href="https://wa.me/61400000000" target="_blank" title="Chat on WhatsApp">💬</a>
+
+<script>
+  // ─── SCROLL REVEAL ───
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        const siblings = e.target.parentElement.querySelectorAll('.reveal');
+        let idx = 0;
+        siblings.forEach((s, si) => { if (s === e.target) idx = si; });
+        setTimeout(() => { e.target.classList.add('visible'); }, idx * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+
+  // ─── CATALOGUE MODAL ───
+  function openCatalogue() {
+    document.getElementById('catalogueModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCatalogue() {
+    document.getElementById('catalogueModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('catalogueModal').addEventListener('click', function(e) {
+    if (e.target === this) closeCatalogue();
+  });
+
+  // ─── PRODUCT TOGGLE ───
+  function toggleProduct(el) {
+    // Don't toggle if clicking the qty stepper
+    el.classList.toggle('selected');
+    const cb = el.querySelector('input[type="checkbox"]');
+    cb.checked = !cb.checked;
+    // Reset qty to 1 when deselected
+    if (!el.classList.contains('selected')) {
+      el.querySelector('.qty-value').textContent = '1';
+    }
+    updateCount();
+  }
+  function changeQty(e, btn, delta) {
+    e.stopPropagation(); // prevent toggling the card
+    const item = btn.closest('.product-item');
+    if (!item.classList.contains('selected')) return;
+    const qtyEl = item.querySelector('.qty-value');
+    let qty = parseInt(qtyEl.textContent) + delta;
+    if (qty < 1) qty = 1;
+    if (qty > 999) qty = 999;
+    qtyEl.textContent = qty;
+  }
+  function updateCount() {
+    const count = document.querySelectorAll('.product-item.selected').length;
+    document.getElementById('selCount').textContent = count;
+    document.getElementById('sendBtn').disabled = count === 0;
+  }
+
+  // ─── SUBMIT → PDF + WHATSAPP ───
+  function submitCatalogue() {
+    const selected = document.querySelectorAll('.product-item.selected');
+    if (selected.length === 0) return;
+
+    const btn = document.getElementById('sendBtn');
+    btn.disabled = true;
+    btn.textContent = '⏳ Generating PDF...';
+
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-AU', { day: '2-digit', month: 'long', year: 'numeric' });
+    const refNum = 'SQC-' + Date.now().toString().slice(-6);
+
+    // Group selected products by section
+    const sections = {};
+    selected.forEach(item => {
+      const sectionEl = item.closest('.product-grid').previousElementSibling;
+      const sectionName = sectionEl ? sectionEl.textContent.trim() : 'Products';
+      const name = item.querySelector('.prod-name').textContent;
+      const sub = item.querySelector('.prod-sub').textContent;
+      const qty = parseInt(item.querySelector('.qty-value').textContent) || 1;
+      if (!sections[sectionName]) sections[sectionName] = [];
+      sections[sectionName].push({ name, sub, qty });
+    });
+
+    // ── Build PDF ──
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+    const W = 210, PL = 20, PR = 20, CW = W - PL - PR;
+
+    // Orange header bar
+    doc.setFillColor(232, 131, 42);
+    doc.rect(0, 0, 210, 42, 'F');
+
+    // Logo text
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(20);
+    doc.text('Sydney Quality Cones', PL, 18);
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Wholesale Ice Cream & Gelato Supplies — Sydney, NSW', PL, 26);
+    doc.text('info@sydneyqualitycones.com.au  |  +61 2 XXXX XXXX', PL, 33);
+
+    // Title area
+    doc.setFillColor(255, 248, 238);
+    doc.rect(0, 42, 210, 22, 'F');
+    doc.setTextColor(61, 26, 10);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(13);
+    doc.text('PRODUCT ENQUIRY', PL, 54);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(122, 90, 58);
+    doc.text(`Ref: ${refNum}`, W - PR - 50, 52);
+    doc.text(`Date: ${dateStr}`, W - PR - 50, 58);
+
+    let y = 74;
+
+    // Intro note
+    doc.setFillColor(255, 240, 212);
+    doc.roundedRect(PL, y - 5, CW, 14, 3, 3, 'F');
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(9);
+    doc.setTextColor(122, 90, 58);
+    doc.text('Please provide pricing and availability for the following products. Thank you!', PL + 4, y + 4);
+    y += 18;
+
+    // Products by section
+    Object.entries(sections).forEach(([section, products]) => {
+      if (y > 255) { doc.addPage(); y = 20; }
+
+      // Section header
+      doc.setFillColor(232, 131, 42);
+      doc.roundedRect(PL, y, CW, 8, 2, 2, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9);
+      doc.setTextColor(255, 255, 255);
+      doc.text(section.replace(/^[^\w]+/, '').trim(), PL + 4, y + 5.5);
+      y += 12;
+
+      products.forEach((p, i) => {
+        if (y > 268) { doc.addPage(); y = 20; }
+        // Alternate row bg
+        if (i % 2 === 0) {
+          doc.setFillColor(255, 252, 248);
+          doc.rect(PL, y - 1, CW, 10, 'F');
+        }
+        // Checkbox
+        doc.setDrawColor(200, 150, 80);
+        doc.setLineWidth(0.4);
+        doc.rect(PL + 2, y + 1, 5, 5);
+        doc.setFillColor(232, 131, 42);
+        doc.rect(PL + 2.8, y + 1.8, 3.4, 3.4, 'F');
+        doc.setTextColor(255,255,255);
+        doc.setFontSize(5);
+        doc.text('✓', PL + 3.3, y + 5);
+
+        // Product name
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9.5);
+        doc.setTextColor(61, 26, 10);
+        doc.text(p.name, PL + 12, y + 5.5);
+
+        // Sub label
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        doc.setTextColor(122, 90, 58);
+        const nameW = doc.getTextWidth(p.name) + 2;
+        doc.text(`· ${p.sub}`, PL + 12 + nameW, y + 5.5);
+
+        // Qty on right - now shows actual selected qty
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(8.5);
+        doc.setTextColor(232, 131, 42);
+        doc.text(`Qty: ${p.qty}`, W - PR - 20, y + 5.5);
+
+        y += 10;
+      });
+      y += 5;
+    });
+
+    // Summary line
+    if (y > 260) { doc.addPage(); y = 20; }
+    doc.setFillColor(61, 26, 10);
+    doc.rect(PL, y, CW, 0.4, 'F');
+    y += 6;
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(61, 26, 10);
+    doc.text(`Total Products Selected: ${selected.length}`, PL, y);
+
+    // Footer
+    const pageCount = doc.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setFillColor(61, 26, 10);
+      doc.rect(0, 285, 210, 12, 'F');
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7.5);
+      doc.setTextColor(255, 255, 255);
+      doc.text('Sydney Quality Cones  ·  Sydney, NSW  ·  info@sydneyqualitycones.com.au  ·  ABN: XX XXX XXX XXX', PL, 292);
+      doc.text(`Page ${i} of ${pageCount}`, W - PR - 14, 292);
+    }
+
+    // Download PDF
+    const filename = `SydneyQualityCones-Enquiry-${refNum}.pdf`;
+    doc.save(filename);
+
+    // Build WhatsApp message
+    const productList = [];
+    selected.forEach(item => {
+      const name = item.querySelector('.prod-name').textContent;
+      const qty = item.querySelector('.qty-value').textContent;
+      productList.push(`• ${name} — Qty: ${qty}`);
+    });
+    const waMessage =
+      `🍦 *Sydney Quality Cones — Product Enquiry*\n` +
+      `📋 Ref: ${refNum}\n` +
+      `📅 Date: ${dateStr}\n\n` +
+      `Hi! I've just downloaded a PDF enquiry (${filename}) with my product selection. Please find it attached.\n\n` +
+      `*Selected products (${selected.length}):*\n` +
+      productList.join('\n') +
+      `\n\n_Please reply with pricing and availability. Thank you!_`;
+
+    // Short delay so PDF download triggers first, then open WhatsApp
+    setTimeout(() => {
+      window.open(`https://wa.me/61400000000?text=${encodeURIComponent(waMessage)}`, '_blank');
+
+      // Show success screen
+      document.getElementById('modalBody').style.display = 'none';
+      document.querySelector('.modal-footer').style.display = 'none';
+      const success = document.createElement('div');
+      success.className = 'modal-success';
+      success.style.display = 'flex';
+      success.innerHTML = `
+        <div class="success-icon">✅</div>
+        <h3>Almost done!</h3>
+        <p>
+          <strong>1.</strong> Your PDF (<em>${filename}</em>) has been downloaded.<br><br>
+          <strong>2.</strong> WhatsApp has opened — simply <strong>attach the PDF</strong> from your downloads and send!
+        </p>
+        <button onclick="resetModal()" style="margin-top:24px;background:var(--cone);color:white;border:none;padding:12px 28px;border-radius:50px;font-size:0.9rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;">Done</button>
+      `;
+      document.querySelector('.modal-box').appendChild(success);
+    }, 800);
+  }
+
+  function resetModal() {
+    document.querySelectorAll('.product-item.selected').forEach(el => {
+      el.classList.remove('selected');
+      el.querySelector('input').checked = false;
+      el.querySelector('.qty-value').textContent = '1';
+    });
+    updateCount();
+    document.getElementById('modalBody').style.display = '';
+    document.querySelector('.modal-footer').style.display = '';
+    const s = document.querySelector('.modal-success');
+    if (s) s.remove();
+    closeCatalogue();
+  }
+</script>
+</body>
+</html>
